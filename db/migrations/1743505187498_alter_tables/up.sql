@@ -11,4 +11,4 @@ ALTER TABLE posts ADD COLUMN likes_count INTEGER DEFAULT 0;
 ALTER TABLE user_profiles ALTER COLUMN bio SET DEFAULT 'No bio provided';
 
 -- Add a simple index on users table for first_name and last_name
-CREATE INDEX idx_users_name ON users(first_name, last_name);
+-- CREATE INDEX idx_users_name ON users(first_name, last_name);

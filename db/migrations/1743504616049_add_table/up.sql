@@ -39,13 +39,13 @@ CREATE TABLE users_roles (
   assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (user_id, role_id),
-  
+
   CONSTRAINT fk_users_roles_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   CONSTRAINT fk_users_roles_role_id FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
 
 -- Add indexes for foreign keys for better performance
-CREATE INDEX idx_user_profiles_user_id ON user_profiles(user_id);
-CREATE INDEX idx_posts_user_id ON posts(user_id);
-CREATE INDEX idx_users_roles_user_id ON users_roles(user_id);
-CREATE INDEX idx_users_roles_role_id ON users_roles(role_id);
+-- CREATE INDEX idx_user_profiles_user_id ON user_profiles(user_id);
+-- CREATE INDEX idx_posts_user_id ON posts(user_id);
+-- CREATE INDEX idx_users_roles_user_id ON users_roles(user_id);
+-- CREATE INDEX idx_users_roles_role_id ON users_roles(role_id);
