@@ -1,6 +1,3 @@
--- Drop the index on users table
--- DROP INDEX IF EXISTS idx_users_name;
-
 -- Remove the default value from bio in user_profiles
 ALTER TABLE user_profiles ALTER COLUMN bio DROP DEFAULT;
 

@@ -1,27 +1,23 @@
 -- One-to-one relationship: user profile
 CREATE TABLE user_profiles (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL UNIQUE,
+  user_id INTEGER NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
   bio TEXT,
   avatar_url VARCHAR(255),
   birth_date DATE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
-  CONSTRAINT fk_user_profiles_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- One-to-many relationship: posts
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
   published BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
-  CONSTRAINT fk_posts_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Many-to-many relationship: roles
@@ -34,18 +30,8 @@ CREATE TABLE roles (
 
 -- Junction table for users and roles
 CREATE TABLE users_roles (
-  user_id INTEGER NOT NULL,
-  role_id INTEGER NOT NULL,
-  assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-
-  PRIMARY KEY (user_id, role_id),
-
-  CONSTRAINT fk_users_roles_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  CONSTRAINT fk_users_roles_role_id FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  role_id INTEGER NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+  assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-
--- Add indexes for foreign keys for better performance
--- CREATE INDEX idx_user_profiles_user_id ON user_profiles(user_id);
--- CREATE INDEX idx_posts_user_id ON posts(user_id);
--- CREATE INDEX idx_users_roles_user_id ON users_roles(user_id);
--- CREATE INDEX idx_users_roles_role_id ON users_roles(role_id);

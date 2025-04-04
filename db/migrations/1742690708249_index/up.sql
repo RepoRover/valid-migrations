@@ -7,6 +7,3 @@ CREATE TABLE users (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-
--- Add an index on email for faster lookups
--- CREATE INDEX idx_users_email ON users(email);
