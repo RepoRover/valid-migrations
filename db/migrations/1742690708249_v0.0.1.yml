@@ -1,0 +1,37 @@
+database:
+  engine: postgres
+schema:
+  id: 1742690708249
+  name: index
+  tables:
+    users:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        first_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        last_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        email:
+          type: varchar(255)
+          constraints:
+            - not null
+            - unique
+        password_hash:
+          type: varchar(255)
+          constraints:
+            - not null
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []

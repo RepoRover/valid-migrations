@@ -1,0 +1,205 @@
+database:
+  engine: postgres
+schema:
+  id: 1743505187599
+  name: relationless_table
+  tables:
+    users:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        first_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        last_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        email:
+          type: varchar(320)
+          constraints:
+            - not null
+            - unique
+        password_hash:
+          type: varchar(255)
+          constraints:
+            - not null
+        status:
+          type: varchar(20)
+          default: "active"
+        last_login_at:
+          type: timestamp with time zone
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []
+
+    user_profiles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+            - unique
+        bio:
+          type: text
+          default: "No bio provided"
+        avatar_url:
+          type: varchar(255)
+        birth_date:
+          type: date
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+
+    posts:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+        title:
+          type: varchar(300)
+          constraints:
+            - not null
+        content:
+          type: text
+          constraints:
+            - not null
+            - unique
+        published:
+          type: boolean
+          default: true
+          constraints:
+            - not null
+        likes_count:
+          type: integer
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+
+    roles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        name:
+          type: varchar(50)
+          constraints:
+            - not null
+            - unique
+        description:
+          type: text
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []
+
+    users_roles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+        role_id:
+          type: integer
+          constraints:
+            - not null
+        assigned_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+        - columns: [role_id]
+          references:
+            table: roles
+            columns: [id]
+          on_delete: cascade
+
+    products:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        sku:
+          type: varchar(50)
+          constraints:
+            - not null
+            - unique
+        name:
+          type: varchar(255)
+          constraints:
+            - not null
+        description:
+          type: text
+        price:
+          type: integer
+          constraints:
+            - not null
+        stock_quantity:
+          type: integer
+          constraints:
+            - not null
+          default: 0
+        is_active:
+          type: boolean
+          default: true
+        category:
+          type: varchar(255)
+        weight:
+          type: integer
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []

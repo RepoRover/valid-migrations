@@ -1,0 +1,152 @@
+database:
+  engine: postgres
+schema:
+  id: 1743504616049
+  name: add_table
+  tables:
+    users:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        first_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        last_name:
+          type: varchar(100)
+          constraints:
+            - not null
+        email:
+          type: varchar(255)
+          constraints:
+            - not null
+            - unique
+        password_hash:
+          type: varchar(255)
+          constraints:
+            - not null
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []
+
+    user_profiles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+            - unique
+        bio:
+          type: text
+        avatar_url:
+          type: varchar(255)
+        birth_date:
+          type: date
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+
+    posts:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+        title:
+          type: varchar(255)
+          constraints:
+            - not null
+        content:
+          type: text
+          constraints:
+            - not null
+        published:
+          type: boolean
+          default: false
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+        updated_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+
+    roles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        name:
+          type: varchar(50)
+          constraints:
+            - not null
+            - unique
+        description:
+          type: text
+        created_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys: []
+
+    users_roles:
+      columns:
+        id:
+          type: serial
+          constraints:
+            - primary key
+        user_id:
+          type: integer
+          constraints:
+            - not null
+        role_id:
+          type: integer
+          constraints:
+            - not null
+        assigned_at:
+          type: timestamp with time zone
+          default: current_timestamp
+      indexes: []
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+        - columns: [role_id]
+          references:
+            table: roles
+            columns: [id]
+          on_delete: cascade
