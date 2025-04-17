@@ -1,2 +1,4 @@
 .antlr
 *.g4
+
+db/config.yml
