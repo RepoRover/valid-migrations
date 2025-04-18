@@ -2,7 +2,7 @@ database:
   engine: postgres
 schema:
   id: 1743505187499
-  name: test_all_cases
+  name: v1.0.2
   tables:
     - name: users
       columns:

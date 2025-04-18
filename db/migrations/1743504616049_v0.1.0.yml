@@ -2,7 +2,7 @@ database:
   engine: postgres
 schema:
   id: 1743504616049
-  name: add_table
+  name: v0.1.0
   tables:
     - name: users
       columns:

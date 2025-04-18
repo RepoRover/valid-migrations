@@ -2,7 +2,7 @@ database:
   engine: postgres
 schema:
   id: 1743505187599
-  name: relationless_table
+  name: v2.0.0
   tables:
     - name: users
       columns:

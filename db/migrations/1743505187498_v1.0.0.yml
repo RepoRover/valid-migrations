@@ -2,7 +2,7 @@ database:
   engine: postgres
 schema:
   id: 1743505187498
-  name: alter_tables
+  name: v1.0.0
   tables:
     - name: users
       columns:

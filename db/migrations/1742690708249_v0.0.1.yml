@@ -2,7 +2,7 @@ database:
   engine: postgres
 schema:
   id: 1742690708249
-  name: index
+  name: v0.0.1
   tables:
     - name: users
       columns:
