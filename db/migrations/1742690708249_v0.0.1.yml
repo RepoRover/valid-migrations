@@ -4,33 +4,33 @@ schema:
   id: 1742690708249
   name: index
   tables:
-    users:
+    - name: users
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        first_name:
+        - name: first_name
           type: varchar(100)
           constraints:
             - not null
-        last_name:
+        - name: last_name
           type: varchar(100)
           constraints:
             - not null
-        email:
+        - name: email
           type: varchar(255)
           constraints:
             - not null
             - unique
-        password_hash:
+        - name: password_hash
           type: varchar(255)
           constraints:
             - not null
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-        updated_at:
+        - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []

@@ -4,65 +4,65 @@ schema:
   id: 1743505187599
   name: relationless_table
   tables:
-    users:
+    - name: users
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        first_name:
+        - name: first_name
           type: varchar(100)
           constraints:
             - not null
-        last_name:
+        - name: last_name
           type: varchar(100)
           constraints:
             - not null
-        email:
+        - name: email
           type: varchar(320)
           constraints:
             - not null
             - unique
-        password_hash:
+        - name: password_hash
           type: varchar(255)
           constraints:
             - not null
-        status:
+        - name: status
           type: varchar(20)
           default: "active"
-        last_login_at:
+        - name: last_login_at
           type: timestamp with time zone
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-        updated_at:
+        - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
       foreign_keys: []
 
-    user_profiles:
+    - name: user_profiles
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        user_id:
+        - name: user_id
           type: integer
           constraints:
             - not null
             - unique
-        bio:
+        - name: bio
           type: text
           default: "No bio provided"
-        avatar_url:
+        - name: avatar_url
           type: varchar(255)
-        birth_date:
+        - name: birth_date
           type: date
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-        updated_at:
+        - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
@@ -73,36 +73,36 @@ schema:
             columns: [id]
           on_delete: cascade
 
-    posts:
+    - name: posts
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        user_id:
+        - name: user_id
           type: integer
           constraints:
             - not null
-        title:
+        - name: title
           type: varchar(300)
           constraints:
             - not null
-        content:
+        - name: content
           type: text
           constraints:
             - not null
             - unique
-        published:
+        - name: published
           type: boolean
           default: true
           constraints:
             - not null
-        likes_count:
+        - name: likes_count
           type: integer
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-        updated_at:
+        - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
@@ -113,40 +113,40 @@ schema:
             columns: [id]
           on_delete: cascade
 
-    roles:
+    - name: roles
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        name:
+        - name: name
           type: varchar(50)
           constraints:
             - not null
             - unique
-        description:
+        - name: description
           type: text
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
       foreign_keys: []
 
-    users_roles:
+    - name: users_roles
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        user_id:
+        - name: user_id
           type: integer
           constraints:
             - not null
-        role_id:
+        - name: role_id
           type: integer
           constraints:
             - not null
-        assigned_at:
+        - name: assigned_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
@@ -162,43 +162,43 @@ schema:
             columns: [id]
           on_delete: cascade
 
-    products:
+    - name: products
       columns:
-        id:
+        - name: id
           type: serial
           constraints:
             - primary key
-        sku:
+        - name: sku
           type: varchar(50)
           constraints:
             - not null
             - unique
-        name:
+        - name: name
           type: varchar(255)
           constraints:
             - not null
-        description:
+        - name: description
           type: text
-        price:
+        - name: price
           type: integer
           constraints:
             - not null
-        stock_quantity:
+        - name: stock_quantity
           type: integer
           constraints:
             - not null
           default: 0
-        is_active:
+        - name: is_active
           type: boolean
           default: true
-        category:
+        - name: category
           type: varchar(255)
-        weight:
+        - name: weight
           type: integer
-        created_at:
+        - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-        updated_at:
+        - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
       indexes: []
