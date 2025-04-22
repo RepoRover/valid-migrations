@@ -134,7 +134,7 @@ schema:
           references:
             table: categories
             columns: [id]
-          on_delete: set null
+          on_delete: no action
 
     - name: roles
       columns:
@@ -281,4 +281,4 @@ schema:
           references:
             table: categories
             columns: [id]
-          on_delete: set null
+          on_delete: no action
