@@ -38,7 +38,7 @@ schema:
         - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
+
       foreign_keys: []
 
     - name: user_profiles
@@ -67,7 +67,7 @@ schema:
         - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
+
       foreign_keys:
         - columns: [user_id]
           references:
@@ -108,7 +108,7 @@ schema:
         - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
+
       foreign_keys:
         - columns: [user_id]
           references:
@@ -132,7 +132,7 @@ schema:
         - name: created_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
+
       foreign_keys: []
 
     - name: users_roles
@@ -152,7 +152,7 @@ schema:
         - name: assigned_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
+
       foreign_keys:
         - columns: [user_id]
           references:

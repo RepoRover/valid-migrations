@@ -10,28 +10,33 @@ schema:
           type: serial
           constraints:
             - primary key
+
         - name: first_name
           type: varchar(100)
           constraints:
             - not null
+
         - name: last_name
           type: varchar(100)
           constraints:
             - not null
+
         - name: email
           type: varchar(255)
           constraints:
             - not null
             - unique
+
         - name: password_hash
           type: varchar(255)
           constraints:
             - not null
+
         - name: created_at
           type: timestamp with time zone
           default: current_timestamp
+
         - name: updated_at
           type: timestamp with time zone
           default: current_timestamp
-      indexes: []
       foreign_keys: []
