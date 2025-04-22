@@ -1,0 +1,284 @@
+database:
+  engine: postgres
+schema:
+  id: 1743591787599
+  name: v2.0.1
+  tables:
+    - name: users
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: first_name
+          type: varchar(100)
+          constraints:
+            - not null
+
+        - name: last_name
+          type: varchar(100)
+          constraints:
+            - not null
+
+        - name: email
+          type: varchar(320)
+          constraints:
+            - not null
+            - unique
+
+        - name: password_hash
+          type: varchar(255)
+          constraints:
+            - not null
+
+        - name: status
+          type: varchar(20)
+          default: "active"
+          constraints:
+            - not null # Added not null constraint
+
+        - name: last_login_at
+          type: timestamp with time zone
+
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+
+        - name: updated_at
+          type: timestamp with time zone
+          default: current_timestamp
+      foreign_keys: []
+
+    - name: user_profiles
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: user_id
+          type: integer
+          constraints:
+            - not null
+            - unique
+
+        - name: bio
+          type: text
+          default: "No bio provided"
+
+        - name: avatar_url
+          type: varchar(255)
+
+        - name: birth_date
+          type: date
+
+        - name: phone_number # New column
+          type: varchar(20)
+
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+
+        - name: updated_at
+          type: timestamp with time zone
+          default: current_timestamp
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+
+    - name: posts
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+        - name: user_id
+          type: integer
+          constraints:
+            - not null
+        - name: title
+          type: varchar(300)
+          constraints:
+            - not null
+        - name: content
+          type: text
+          constraints:
+            - not null
+            - unique
+        - name: published
+          type: boolean
+          default: true
+          constraints:
+            - not null
+        - name: likes_count
+          type: integer
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+        - name: updated_at
+          type: timestamp with time zone
+          default: current_timestamp
+        - name: category_id # New foreign key column
+          type: integer
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+        - columns: [category_id] # New foreign key reference
+          references:
+            table: categories
+            columns: [id]
+          on_delete: set null
+
+    - name: roles
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: name
+          type: varchar(50)
+          constraints:
+            - not null
+            - unique
+
+        - name: description
+          type: text
+
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+
+        - name: is_active # New column
+          type: boolean
+          default: true
+          constraints:
+            - not null
+      foreign_keys: []
+
+    - name: users_roles
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: user_id
+          type: integer
+          constraints:
+            - not null
+
+        - name: role_id
+          type: integer
+          constraints:
+            - not null
+
+        - name: assigned_at
+          type: timestamp with time zone
+          default: current_timestamp
+      foreign_keys:
+        - columns: [user_id]
+          references:
+            table: users
+            columns: [id]
+          on_delete: cascade
+        - columns: [role_id]
+          references:
+            table: roles
+            columns: [id]
+          on_delete: cascade
+
+    - name: products
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: sku
+          type: varchar(50)
+          constraints:
+            - not null
+            - unique
+
+        - name: name
+          type: varchar(255)
+          constraints:
+            - not null
+
+        - name: description
+          type: text
+
+        - name: price
+          type: integer
+          constraints:
+            - not null
+
+        - name: stock_quantity
+          type: integer
+          constraints:
+            - not null
+          default: 0
+
+        - name: is_active
+          type: boolean
+          default: true
+
+        - name: category
+          type: varchar(255)
+
+        - name: weight
+          type: integer
+
+        - name: discount_percent # New column
+          type: integer
+          default: 0
+
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+
+        - name: updated_at
+          type: timestamp with time zone
+          default: current_timestamp
+      foreign_keys: []
+
+    - name: categories # New table
+      columns:
+        - name: id
+          type: serial
+          constraints:
+            - primary key
+
+        - name: name
+          type: varchar(100)
+          constraints:
+            - not null
+            - unique
+
+        - name: description
+          type: text
+
+        - name: parent_id
+          type: integer
+
+        - name: created_at
+          type: timestamp with time zone
+          default: current_timestamp
+
+        - name: updated_at
+          type: timestamp with time zone
+          default: current_timestamp
+      foreign_keys:
+        - columns: [parent_id]
+          references:
+            table: categories
+            columns: [id]
+          on_delete: set null
